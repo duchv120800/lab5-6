@@ -11,7 +11,7 @@ class StoreGenreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +19,18 @@ class StoreGenreRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:genres,name|max:255',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tiêu đề phim không được để trống.',
+            'name.unique' => 'Tiêu đề phim đã tồn tại.',
         ];
     }
 }
